@@ -34,6 +34,9 @@ import {
   CheckCircle,
   Menu,
   X,
+  Workflow,
+  Radio,
+  Lock,
 } from "lucide-react";
 
 export default function Portfolio() {
@@ -47,11 +50,11 @@ export default function Portfolio() {
       const sections = [
         "hero",
         "about",
+        "architecture",
         "skills",
         "experience",
         "biometrics",
         "projects",
-        "mentorship",
         "contact",
       ];
       const scrollPosition = window.scrollY + 100;
@@ -109,15 +112,15 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden relative">
+    <div className="portfolio-shell relative min-h-screen overflow-x-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-900/10 via-navy-800/10 to-black" />
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(30)].map((_, i) => (
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,24,39,0.3),rgba(10,15,28,0.9))]" />
+        <div className="absolute inset-0 opacity-10">
+          {[...Array(14)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-navy-400 rounded-full"
+              className="absolute h-1 w-1 rounded-full bg-[rgba(96,165,250,0.35)]"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -127,7 +130,7 @@ export default function Portfolio() {
                 scale: [0, 1, 0],
               }}
               transition={{
-                duration: Math.random() * 3 + 2,
+                duration: Math.random() * 5 + 5,
                 repeat: Number.POSITIVE_INFINITY,
                 delay: Math.random() * 2,
               }}
@@ -137,13 +140,13 @@ export default function Portfolio() {
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+      <nav className="portfolio-nav fixed left-0 right-0 top-0 z-50 border-b backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex justify-between items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500"
+              className="section-accent text-xl font-bold sm:text-2xl"
             >
               AO
             </motion.div>
@@ -152,20 +155,20 @@ export default function Portfolio() {
             <div className="hidden lg:flex space-x-6 xl:space-x-8">
               {[
                 "About",
+                "Architecture",
                 "Skills",
                 "Experience",
                 "Biometrics",
                 "Projects",
-                "Mentorship",
                 "Contact",
               ].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`text-sm font-medium transition-colors hover:text-blue-500 ${
+                  className={`text-sm font-medium transition-colors hover:text-[#60A5FA] ${
                     activeSection === item.toLowerCase()
-                      ? "text-blue-500"
-                      : "text-gray-300"
+                      ? "text-[#60A5FA]"
+                      : "text-[#94A3B8]"
                   }`}
                 >
                   {item}
@@ -176,7 +179,7 @@ export default function Portfolio() {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="lg:hidden p-2 text-gray-300 hover:text-white transition-colors"
+              className="lg:hidden p-2 text-[#94A3B8] transition-colors hover:text-[#F8FAFC]"
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -192,25 +195,25 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="lg:hidden mt-4 pb-4 border-t border-gray-800"
+              className="lg:hidden mt-4 border-t border-[#1E293B] pb-4"
             >
               <div className="flex flex-col space-y-4 pt-4">
                 {[
                   "About",
+                  "Architecture",
                   "Skills",
                   "Experience",
                   "Biometrics",
                   "Projects",
-                  "Mentorship",
                   "Contact",
                 ].map((item) => (
                   <button
                     key={item}
                     onClick={() => scrollToSection(item.toLowerCase())}
-                    className={`text-left text-base font-medium transition-colors hover:text-blue-500 ${
+                    className={`text-left text-base font-medium transition-colors hover:text-[#60A5FA] ${
                       activeSection === item.toLowerCase()
-                        ? "text-blue-500"
-                        : "text-gray-300"
+                        ? "text-[#60A5FA]"
+                        : "text-[#94A3B8]"
                     }`}
                   >
                     {item}
@@ -229,34 +232,34 @@ export default function Portfolio() {
       >
         <motion.div
           style={{ y: backgroundY }}
-          className="absolute inset-0 bg-gradient-to-br from-navy-900/20 via-navy-800/20 to-black"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.12),transparent_34%),linear-gradient(180deg,rgba(17,24,39,0.28),rgba(10,15,28,0.88))]"
         />
 
         {/* 3D Floating Elements - Hidden on mobile for performance */}
         <div className="absolute inset-0 overflow-hidden hidden md:block">
           <motion.div
-            className="absolute top-20 left-10 w-16 h-16 lg:w-20 lg:h-20 border border-navy-400/30 rotate-45"
-            animate={{ rotateY: 360 }}
+            className="absolute left-10 top-20 h-16 w-16 rotate-45 border border-[rgba(96,165,250,0.14)] lg:h-20 lg:w-20"
+            animate={{ y: [-10, 10, -10] }}
             transition={{
-              duration: 20,
+              duration: 18,
               repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
+              ease: "easeInOut",
             }}
           />
           <motion.div
-            className="absolute top-40 right-20 w-12 h-12 lg:w-16 lg:h-16 border border-navy-400/30"
-            animate={{ rotateX: 360 }}
+            className="absolute right-20 top-40 h-12 w-12 border border-[rgba(96,165,250,0.14)] lg:h-16 lg:w-16"
+            animate={{ y: [8, -8, 8] }}
             transition={{
-              duration: 15,
+              duration: 14,
               repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
+              ease: "easeInOut",
             }}
           />
           <motion.div
-            className="absolute bottom-40 left-20 w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-navy-400/20 to-navy-600/20 rounded-full"
-            animate={{ y: [-20, 20, -20] }}
+            className="absolute bottom-40 left-20 h-10 w-10 rounded-full bg-[linear-gradient(135deg,rgba(96,165,250,0.08),rgba(59,130,246,0.04))] lg:h-12 lg:w-12"
+            animate={{ y: [-12, 12, -12] }}
             transition={{
-              duration: 4,
+              duration: 8,
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
             }}
@@ -270,48 +273,66 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold mb-4 sm:mb-6">
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
+            <p className="mb-4 text-xs font-medium uppercase tracking-[0.28em] text-gray-500 sm:text-sm">
+              Senior Backend Engineer • Backend Architect • Distributed Systems
+              Engineer
+            </p>
+            <h1 className="text-4xl font-bold leading-tight sm:text-6xl lg:text-8xl mb-4 sm:mb-6">
+              <span className="section-accent">
                 Ayomide
               </span>
               <br />
-              <span className="text-white">Ogbede</span>
+              <span className="text-[#F8FAFC]">Ogbede</span>
+              <span className="ml-2 inline-block align-middle text-sm font-medium tracking-[0.18em] text-gray-500 sm:text-lg lg:text-xl">
+                , C.itp, MCPN
+              </span>
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-4 max-w-3xl mx-auto px-4">
-              CEO & Fullstack Engineer crafting scalable SaaS applications with
-              7+ years of experience
+            <p className="mx-auto mb-4 max-w-3xl px-4 text-lg text-[#F8FAFC] sm:text-xl lg:text-2xl">
+              Senior Backend / Full-Stack Engineer building scalable
+              cloud-native and identity management systems
             </p>
-            <p className="text-base sm:text-lg text-blue-500 mb-6 sm:mb-8">
-              Mentored 20+ Developers • Reduced Cloud Costs by 60%
+            <p className="mb-4 px-4 text-sm font-medium tracking-[0.12em] text-[#60A5FA] sm:text-base">
+              NestJS • Node.js • PostgreSQL • AWS • Docker • Observability
+            </p>
+            <p className="mb-6 text-sm text-[#94A3B8] sm:mb-8 sm:text-base">
+              9+ Years in Production Backend Systems • Secure Identity
+              Infrastructure • Cloud-Native Delivery
             </p>
             <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4">
               <Badge
                 variant="outline"
-                className="text-blue-500 border-navy-400 px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm"
+                className="outline-badge px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm"
               >
                 <Terminal className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 Backend Architect
               </Badge>
               <Badge
                 variant="outline"
-                className="text-blue-500 border-navy-400 px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm"
+                className="outline-badge px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm"
+              >
+                <Workflow className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                Distributed Systems
+              </Badge>
+              <Badge
+                variant="outline"
+                className="outline-badge px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm"
               >
                 <Cloud className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                Cloud Native
+                Cloud-Native Delivery
               </Badge>
               <Badge
                 variant="outline"
-                className="text-blue-500 border-navy-400 px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm"
+                className="outline-badge px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm"
               >
-                <Building className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                Tech CEO
+                <Lock className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                Secure APIs
               </Badge>
               <Badge
                 variant="outline"
-                className="text-blue-500 border-navy-400 px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm"
+                className="outline-badge px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm"
               >
                 <Fingerprint className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                Biometrics Expert
+                Identity Infrastructure
               </Badge>
             </div>
           </motion.div>
@@ -325,7 +346,7 @@ export default function Portfolio() {
             <Button
               size="lg"
               onClick={() => scrollToSection("projects")}
-              className="w-full sm:w-auto bg-gradient-to-r from-navy-600 to-navy-800 hover:from-navy-700 hover:to-navy-900 px-6 sm:px-8 py-3 transform hover:scale-105 transition-transform"
+              className="primary-button w-full px-6 py-3 sm:w-auto sm:px-8"
             >
               View My Work
             </Button>
@@ -333,7 +354,7 @@ export default function Portfolio() {
               size="lg"
               variant="outline"
               onClick={() => scrollToSection("contact")}
-              className="w-full sm:w-auto bg-blue-400 border-gray-600 text-white hover:bg-gray-800 px-6 sm:px-8 py-3 transform hover:scale-105 transition-transform"
+              className="secondary-button w-full px-6 py-3 sm:w-auto sm:px-8"
             >
               Get In Touch
             </Button>
@@ -343,9 +364,9 @@ export default function Portfolio() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden sm:block"
+            className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 transform sm:block"
           >
-            <ChevronDown className="w-8 h-8 text-gray-400 animate-bounce" />
+            <ChevronDown className="h-8 w-8 text-[#94A3B8]" />
           </motion.div>
         </div>
       </section>
@@ -361,32 +382,35 @@ export default function Portfolio() {
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16">
               About{" "}
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
+              <span className="section-accent">
                 Me
               </span>
             </h2>
 
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
               <div>
-                <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-6">
-                  CEO of OOEAN IT Solutions Limited and versatile Fullstack
-                  Engineer with over 7 years of experience developing scalable
-                  SaaS applications across web and mobile platforms. I
-                  specialize in backend development using NestJS, TypeScript,
-                  Node.js, and Go, with a strong focus on PostgreSQL, schema
-                  design, and microservices architecture.
+                <p className="mb-6 text-base leading-relaxed text-[#F8FAFC] sm:text-lg">
+                  Senior Backend / Full-Stack Engineer with 9+ years of
+                  experience designing production backend systems, cloud-native
+                  services, and secure identity workflows. My primary stack is
+                  NestJS, Node.js, TypeScript, PostgreSQL, AWS, and Docker,
+                  with a strong focus on API design, event-driven
+                  architecture, reliability engineering, and distributed system
+                  boundaries.
                 </p>
-                <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-8">
-                  As a tech leader and mentor, I've guided over 20 developers in
-                  their careers while building high-performance, testable, and
-                  maintainable systems. My experience includes reducing cloud
-                  costs by 60% and implementing cloud-native solutions using
-                  AWS. I also specialize in biometric solutions, developing
-                  World Bank standard applications for identity management.
+                <p className="mb-8 text-base leading-relaxed text-[#94A3B8] sm:text-lg">
+                  I have delivered fintech and public-sector identity platforms,
+                  including biometric enrollment services, secure API
+                  ecosystems, WebRTC-enabled real-time modules, and resilient
+                  integration layers. Recent work spans scalable production
+                  infrastructure, Dockerized service delivery, observability,
+                  SLA/SLO-aware monitoring, and backend services built for high
+                  availability, asynchronous processing, and operational
+                  traceability.
                 </p>
 
-                <div className="flex items-center gap-4 text-gray-300">
-                  <MapPin className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                <div className="flex items-center gap-4 text-[#94A3B8]">
+                  <MapPin className="h-5 w-5 flex-shrink-0 text-[#60A5FA]" />
                   <span className="text-sm sm:text-base">
                     Katampe, Abuja, Nigeria
                   </span>
@@ -394,78 +418,71 @@ export default function Portfolio() {
               </div>
 
               <div className="space-y-4 sm:space-y-6">
-                <motion.div
-                  whileHover={{ rotateY: 5, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Card className="bg-gray-900 border-gray-800 transform-gpu">
+                <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                  <Card className="panel-card transform-gpu">
                     <CardContent className="p-4 sm:p-6">
                       <div className="flex items-center gap-4 mb-4">
-                        <Building className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 flex-shrink-0" />
+                        <Building className="h-6 w-6 flex-shrink-0 text-[#60A5FA] sm:h-8 sm:w-8" />
                         <div>
-                          <h3 className="text-lg sm:text-xl font-semibold text-white">
-                            CEO & Founder
+                          <h3 className="text-lg font-semibold text-[#F8FAFC] sm:text-xl">
+                            Senior Backend Engineer
                           </h3>
-                          <p className="text-sm sm:text-base text-gray-400">
+                          <p className="text-sm text-[#94A3B8] sm:text-base">
                             OOEAN IT Solutions Limited
                           </p>
                         </div>
                       </div>
-                      <p className="text-sm sm:text-base text-gray-300">
-                        Leading innovative tech solutions and mentoring the next
-                        generation of developers
+                      <p className="text-sm text-[#94A3B8] sm:text-base">
+                        Designing and shipping cloud-native backend services,
+                        Dockerized workloads, secure APIs, and identity-centric
+                        platform components
                       </p>
                     </CardContent>
                   </Card>
                 </motion.div>
 
-                <motion.div
-                  whileHover={{ rotateY: -5, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Card className="bg-gray-900 border-gray-800 transform-gpu">
+                <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                  <Card className="panel-card transform-gpu">
                     <CardContent className="p-4 sm:p-6">
                       <div className="flex items-center gap-4 mb-4">
-                        <Award className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 flex-shrink-0" />
+                        <Award className="h-6 w-6 flex-shrink-0 text-[#60A5FA] sm:h-8 sm:w-8" />
                         <div>
-                          <h3 className="text-lg sm:text-xl font-semibold text-white">
+                          <h3 className="text-lg font-semibold text-[#F8FAFC] sm:text-xl">
                             Education
                           </h3>
-                          <p className="text-sm sm:text-base text-gray-400">
-                            Les Cours Sonou University
+                          <p className="text-sm text-[#94A3B8] sm:text-base">
+                            Les Cours Sonou Institute
                           </p>
                         </div>
                       </div>
-                      <p className="text-sm sm:text-base text-gray-300 mb-2">
-                        B.Sc. Computer Science (Second Class Upper)
+                      <p className="mb-2 text-sm text-[#94A3B8] sm:text-base">
+                        Professional Training in Computer Science
                       </p>
-                      <Badge className="bg-blue-400/20 text-blue-500 text-xs">
+                      <Badge className="panel-badge text-xs">
                         Programmer of the Year 2017
                       </Badge>
                     </CardContent>
                   </Card>
                 </motion.div>
 
-                <motion.div
-                  whileHover={{ rotateY: 5, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Card className="bg-gray-900 border-gray-800 transform-gpu">
+                <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                  <Card className="panel-card transform-gpu">
                     <CardContent className="p-4 sm:p-6">
                       <div className="flex items-center gap-4 mb-4">
-                        <Users className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 flex-shrink-0" />
+                        <Users className="h-6 w-6 flex-shrink-0 text-[#60A5FA] sm:h-8 sm:w-8" />
                         <div>
-                          <h3 className="text-lg sm:text-xl font-semibold text-white">
-                            Mentorship
+                          <h3 className="text-lg font-semibold text-[#F8FAFC] sm:text-xl">
+                            Engineering Mentorship
                           </h3>
-                          <p className="text-sm sm:text-base text-gray-400">
+                          <p className="text-sm text-[#94A3B8] sm:text-base">
                             20+ Developers Mentored
                           </p>
                         </div>
                       </div>
-                      <p className="text-sm sm:text-base text-gray-300">
-                        Passionate about sharing knowledge and growing the tech
-                        community
+                      <p className="text-sm text-[#94A3B8] sm:text-base">
+                        Mentored engineers through backend architecture,
+                        distributed systems design, operational readiness, and
+                        production debugging practices
                       </p>
                     </CardContent>
                   </Card>
@@ -476,10 +493,62 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Architecture Section */}
+      <section
+        id="architecture"
+        className="panel-section relative z-10 px-4 py-16 sm:px-6 sm:py-20"
+      >
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8">
+              Architecture &{" "}
+              <span className="section-accent">
+                Systems Expertise
+              </span>
+            </h2>
+            <p className="mx-auto mb-12 max-w-4xl text-center text-lg text-[#94A3B8] sm:mb-16 sm:text-xl">
+              Focused on resilient backend platforms for identity, fintech, and
+              real-time products, with clear architecture boundaries,
+              observability, asynchronous workflows, and security-first API
+              design.
+            </p>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {[
+                "Distributed systems",
+                "Event-driven architecture",
+                "Identity infrastructure",
+                "Secure API ecosystems",
+                "Cloud-native backend systems",
+                "Observability and reliability engineering",
+                "Asynchronous processing and workflow orchestration",
+                "Real-time communication systems",
+                "Biometric processing systems",
+              ].map((item) => (
+                <Card
+                  key={item}
+                  className="panel-card transition-colors"
+                >
+                  <CardContent className="p-5 sm:p-6 flex items-start gap-3">
+                    <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#60A5FA]" />
+                    <p className="text-sm text-[#F8FAFC] sm:text-base">{item}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Skills Section */}
       <section
         id="skills"
-        className="py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/50 relative z-10"
+        className="panel-section relative z-10 px-4 py-16 sm:px-6 sm:py-20"
       >
         <div className="container mx-auto max-w-6xl">
           <motion.div
@@ -489,41 +558,20 @@ export default function Portfolio() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16">
-              Technical{" "}
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
-                Arsenal
-              </span>
+              Backend & Platform <span className="section-accent">Stack</span>
             </h2>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              <motion.div
-                whileHover={{ rotateX: 10, rotateY: 10, scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu h-full">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card h-full transition-colors">
                   <CardHeader className="text-center p-4 sm:p-6">
-                    <Code className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4" />
-                    <CardTitle className="text-white text-lg sm:text-xl">
-                      Languages
-                    </CardTitle>
+                    <Code className="mx-auto mb-4 h-10 w-10 text-[#60A5FA] sm:h-12 sm:w-12" />
+                    <CardTitle className="text-lg text-[#F8FAFC] sm:text-xl">Languages</CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <div className="flex flex-wrap gap-2">
-                      {[
-                        "TypeScript",
-                        "JavaScript",
-                        "Go",
-                        "C#",
-                        "Java",
-                        "Dart",
-                        "Swift",
-                        "Kotlin",
-                      ].map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="secondary"
-                          className="bg-blue-400/20 text-blue-500 text-xs"
-                        >
+                      {["TypeScript", "JavaScript", "Go", "C#", "Java", "SQL", "Kotlin", "Python"].map((skill) => (
+                        <Badge key={skill} variant="secondary" className="panel-badge text-xs">
                           {skill}
                         </Badge>
                       ))}
@@ -532,34 +580,25 @@ export default function Portfolio() {
                 </Card>
               </motion.div>
 
-              <motion.div
-                whileHover={{ rotateX: 10, rotateY: -10, scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu h-full">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card h-full transition-colors">
                   <CardHeader className="text-center p-4 sm:p-6">
-                    <Server className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4" />
-                    <CardTitle className="text-white text-lg sm:text-xl">
-                      Backend
-                    </CardTitle>
+                    <Server className="mx-auto mb-4 h-10 w-10 text-[#60A5FA] sm:h-12 sm:w-12" />
+                    <CardTitle className="text-lg text-[#F8FAFC] sm:text-xl">Backend</CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <div className="flex flex-wrap gap-2">
                       {[
                         "NestJS",
                         "Node.js",
-                        ".NET",
-                        "Laravel",
                         "PostgreSQL",
-                        "REST APIs",
+                        "Secure APIs",
+                        "Event-Driven Systems",
                         "gRPC",
                         "Microservices",
+                        "Identity Services",
                       ].map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="secondary"
-                          className="bg-blue-400/20 text-blue-500 text-xs"
-                        >
+                        <Badge key={skill} variant="secondary" className="panel-badge text-xs">
                           {skill}
                         </Badge>
                       ))}
@@ -568,34 +607,27 @@ export default function Portfolio() {
                 </Card>
               </motion.div>
 
-              <motion.div
-                whileHover={{ rotateX: -10, rotateY: 10, scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu h-full">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card h-full transition-colors">
                   <CardHeader className="text-center p-4 sm:p-6">
-                    <Cloud className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4" />
-                    <CardTitle className="text-white text-lg sm:text-xl">
-                      Cloud & DevOps
-                    </CardTitle>
+                    <Cloud className="mx-auto mb-4 h-10 w-10 text-[#60A5FA] sm:h-12 sm:w-12" />
+                    <CardTitle className="text-lg text-[#F8FAFC] sm:text-xl">Cloud Infrastructure</CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <div className="flex flex-wrap gap-2">
                       {[
                         "AWS",
-                        "Azure",
                         "Docker",
+                        "Kubernetes",
+                        "Terraform",
+                        "CI/CD",
                         "GitHub Actions",
-                        "EC2",
-                        "Lambda",
-                        "S3",
+                        "Infrastructure Automation",
+                        "Environment Isolation",
+                        "CloudWatch",
                         "RDS",
                       ].map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="secondary"
-                          className="bg-blue-400/20 text-blue-500 text-xs"
-                        >
+                        <Badge key={skill} variant="secondary" className="panel-badge text-xs">
                           {skill}
                         </Badge>
                       ))}
@@ -604,33 +636,25 @@ export default function Portfolio() {
                 </Card>
               </motion.div>
 
-              <motion.div
-                whileHover={{ rotateX: -10, rotateY: -10, scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu h-full">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card h-full transition-colors">
                   <CardHeader className="text-center p-4 sm:p-6">
-                    <Smartphone className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4" />
-                    <CardTitle className="text-white text-lg sm:text-xl">
-                      Frontend & Mobile
-                    </CardTitle>
+                    <Radio className="mx-auto mb-4 h-10 w-10 text-[#60A5FA] sm:h-12 sm:w-12" />
+                    <CardTitle className="text-lg text-[#F8FAFC] sm:text-xl">Systems & Realtime</CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "React",
-                        "React Native",
-                        "Flutter",
-                        "ElectronJS",
-                        "Kotlin",
-                        "Android",
-                        "iOS",
+                        "WebRTC",
+                        "Message Queues",
+                        "Caching",
+                        "Workflow Orchestration",
+                        "Observability",
+                        "SLA/SLO Monitoring",
+                        "Incident Readiness",
+                        "Failure Recovery",
                       ].map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="secondary"
-                          className="bg-blue-400/20 text-blue-500 text-xs"
-                        >
+                        <Badge key={skill} variant="secondary" className="panel-badge text-xs">
                           {skill}
                         </Badge>
                       ))}
@@ -656,37 +680,34 @@ export default function Portfolio() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16">
-              Professional{" "}
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
-                Journey
-              </span>
+              Engineering <span className="section-accent">Experience</span>
             </h2>
 
             <div className="space-y-6 sm:space-y-8">
               {[
                 {
                   company: "OOEAN IT Solutions Limited",
-                  role: "CEO & Founder",
+                  role: "Lead Backend Engineer / Backend Architect",
                   period: "2024 - Present",
                   location: "Katampe, Abuja",
                   achievements: [
-                    "Founded and leading a tech solutions company",
-                    "Mentored over 20 developers across various technologies",
-                    "Built scalable enterprise solutions for government and private sectors",
-                    "Established strategic partnerships with major tech companies",
+                    "Designed backend architecture for identity and fintech workflows with secure API boundaries and service-level reliability considerations",
+                    "Built distributed service components using NestJS and Node.js with PostgreSQL data models and asynchronous processing paths",
+                    "Defined Docker-based deployment workflows with CI/CD guardrails and environment isolation",
+                    "Introduced operational traceability, observability baselines, and production incident readiness practices",
                   ],
                 },
                 {
                   company: "Barnksforte Technology Limited",
-                  role: "Fullstack Developer",
+                  role: "Senior Backend Engineer",
                   period: "08/2023 - Present",
                   location: "FCT, Abuja",
                   achievements: [
-                    "Designed and implemented microservices using NestJS and Go",
-                    "Reduced cloud infrastructure cost by 60% on AWS",
-                    "Built scalable RESTful APIs for internal products and partner integrations",
-                    "Implemented ETL pipelines for large-scale data imports",
-                    "Developed native and cross-platform mobile applications with robust offline capabilities.",
+                    "Designed and implemented distributed services using NestJS and Go with secure API boundaries",
+                    "Optimized AWS workloads and reduced infrastructure cost while preserving service reliability and deployment consistency",
+                    "Built scalable secure APIs for internal products, partner integrations, and transactional workflows",
+                    "Implemented ETL pipelines for large-scale data imports, reconciliation, and asynchronous processing",
+                    "Contributed to cross-platform clients integrated with backend event workflows and real-time delivery paths",
                   ],
                 },
                 {
@@ -695,11 +716,11 @@ export default function Portfolio() {
                   period: "04/2022 - 08/2023",
                   location: "Lagos, Ikeja",
                   achievements: [
-                    "Developed cloud-based SaaS features using Node.js, .NET, and React Native",
-                    "Led backend efforts for applications deployed on Azure",
-                    "Built secure APIs and handled system integrations",
-                    "Participated in Agile sprints and cross-functional planning",
-                    "Built native mobile applications with offline capability",
+                    "Developed cloud-based product features using Node.js, .NET, and React Native",
+                    "Led backend engineering for applications deployed on Azure",
+                    "Built secure APIs and integration services for enterprise systems",
+                    "Participated in Agile delivery with architecture and release planning",
+                    "Implemented offline synchronization flows for field operations",
                   ],
                 },
                 {
@@ -708,9 +729,9 @@ export default function Portfolio() {
                   period: "10/2021 - 03/2022",
                   location: "Lagos, Ikoyi",
                   achievements: [
-                    "Developed backend features using Laravel with strong data modeling",
-                    "Led mobile application development using React Native",
-                    "Collaborated with stakeholders to define product features",
+                    "Developed backend modules with Laravel and strong relational data modeling",
+                    "Built API integrations for mobile and web client workloads",
+                    "Collaborated with product and operations teams to scope delivery milestones",
                   ],
                 },
                 {
@@ -719,9 +740,9 @@ export default function Portfolio() {
                   period: "10/2018 - 09/2021",
                   location: "Lagos, Lekki",
                   achievements: [
-                    "Built native mobile applications with offline capability",
-                    "Assisted with backend optimizations for Laravel-based systems",
-                    "Coordinated QA and release management for mobile apps",
+                    "Built native mobile applications with offline-first architecture",
+                    "Supported backend optimization for Laravel-based services and SQL workloads",
+                    "Coordinated QA and release processes with measurable stability improvements",
                   ],
                 },
               ].map((job, index) => (
@@ -731,39 +752,30 @@ export default function Portfolio() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.02, rotateY: 2 }}
+                  whileHover={{ y: -4 }}
                 >
-                  <Card className="bg-gray-900 border-gray-800 hover:border-navy-500 transition-all duration-300 transform-gpu">
+                  <Card className="panel-card transition-all duration-300">
                     <CardHeader className="p-4 sm:p-6">
                       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                         <div className="mb-2 lg:mb-0">
-                          <CardTitle className="text-lg sm:text-xl text-white mb-2">
+                          <CardTitle className="mb-2 text-lg text-[#F8FAFC] sm:text-xl">
                             {job.role}
                           </CardTitle>
-                          <CardDescription className="text-blue-500 font-semibold text-base sm:text-lg">
+                          <CardDescription className="text-base font-semibold text-[#60A5FA] sm:text-lg">
                             {job.company}
                           </CardDescription>
                         </div>
                         <div className="text-left lg:text-right">
-                          <p className="text-gray-400 text-sm sm:text-base">
-                            {job.period}
-                          </p>
-                          <p className="text-gray-500 text-xs sm:text-sm">
-                            {job.location}
-                          </p>
+                          <p className="text-sm text-[#94A3B8] sm:text-base">{job.period}</p>
+                          <p className="text-xs text-[#94A3B8] sm:text-sm">{job.location}</p>
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent className="p-4 sm:p-6 pt-0">
                       <ul className="space-y-2">
                         {job.achievements.map((achievement, i) => (
-                          <li
-                            key={i}
-                            className="text-gray-300 flex items-start text-sm sm:text-base"
-                          >
-                            <span className="text-blue-500 mr-2 flex-shrink-0">
-                              •
-                            </span>
+                          <li key={i} className="flex items-start text-sm text-[#94A3B8] sm:text-base">
+                            <span className="mr-2 flex-shrink-0 text-[#60A5FA]">•</span>
                             {achievement}
                           </li>
                         ))}
@@ -780,7 +792,7 @@ export default function Portfolio() {
       {/* Biometrics Solutions Section */}
       <section
         id="biometrics"
-        className="py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/50 relative z-10"
+        className="panel-section relative z-10 px-4 py-16 sm:px-6 sm:py-20"
       >
         <div className="container mx-auto max-w-6xl">
           <motion.div
@@ -791,61 +803,59 @@ export default function Portfolio() {
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8">
               Biometric{" "}
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
+              <span className="section-accent">
                 Solutions
               </span>
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
-              Developing world-class biometric capture and identity management
-              systems for Nigerian citizens with international standards
-              compliance
+            <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-[#94A3B8] sm:mb-16 sm:text-xl">
+              Delivered biometric capture, OCR, and identity management
+              components for regulated enrollment workflows, with ICAO-aligned
+              imaging, NIST-compliant validation, and secure processing
+              pipelines.
             </p>
 
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">
-              <motion.div
-                whileHover={{ scale: 1.02, rotateY: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu h-full">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card transform-gpu h-full transition-colors">
                   <CardHeader className="p-4 sm:p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Fingerprint className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 flex-shrink-0" />
+                      <Fingerprint className="h-10 w-10 flex-shrink-0 text-[#60A5FA] sm:h-12 sm:w-12" />
                       <div>
-                        <CardTitle className="text-xl sm:text-2xl text-white">
+                        <CardTitle className="text-xl text-[#F8FAFC] sm:text-2xl">
                           NIMC Biometric Capture
                         </CardTitle>
-                        <CardDescription className="text-blue-500 text-sm sm:text-base">
-                          World Bank Standard Implementation
+                        <CardDescription className="text-sm text-[#60A5FA] sm:text-base">
+                          Identity Workflow Engineering
                         </CardDescription>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-6 p-4 sm:p-6 pt-0">
                     <div>
-                      <h4 className="text-base sm:text-lg font-semibold text-white mb-3">
+                      <h4 className="mb-3 text-base font-semibold text-[#F8FAFC] sm:text-lg">
                         Technical Standards
                       </h4>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
-                          <span className="text-gray-300 text-sm sm:text-base">
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
+                          <span className="text-sm text-[#94A3B8] sm:text-base">
                             WSQ Format
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
                           <span className="text-gray-300 text-sm sm:text-base">
                             ICAO Standards
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
                           <span className="text-gray-300 text-sm sm:text-base">
                             ISO 19794
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
                           <span className="text-gray-300 text-sm sm:text-base">
                             NIST Compliant
                           </span>
@@ -854,33 +864,34 @@ export default function Portfolio() {
                     </div>
 
                     <div>
-                      <h4 className="text-base sm:text-lg font-semibold text-white mb-3">
+                      <h4 className="mb-3 text-base font-semibold text-[#F8FAFC] sm:text-lg">
                         Capture Capabilities
                       </h4>
                       <ul className="space-y-2">
-                        <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                          <span className="text-blue-500 mr-2 flex-shrink-0">
+                        <li className="flex items-start text-sm text-[#94A3B8] sm:text-base">
+                          <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                             •
                           </span>
                           10-finger slap and rolled fingerprint capture
                         </li>
                         <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                          <span className="text-blue-500 mr-2 flex-shrink-0">
+                          <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                             •
                           </span>
                           High-resolution facial photography (ICAO compliant)
                         </li>
                         <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                          <span className="text-blue-500 mr-2 flex-shrink-0">
+                          <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                             •
                           </span>
                           Iris capture with liveness detection
                         </li>
                         <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                          <span className="text-blue-500 mr-2 flex-shrink-0">
+                          <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                             •
                           </span>
-                          Real-time quality assessment and validation
+                          Biometric validation with quality scoring and retry
+                          workflow controls
                         </li>
                       </ul>
                     </div>
@@ -888,50 +899,47 @@ export default function Portfolio() {
                 </Card>
               </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.02, rotateY: -5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu h-full">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card transform-gpu h-full transition-colors">
                   <CardHeader className="p-4 sm:p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Scan className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 flex-shrink-0" />
+                      <Scan className="h-10 w-10 flex-shrink-0 text-[#60A5FA] sm:h-12 sm:w-12" />
                       <div>
-                        <CardTitle className="text-xl sm:text-2xl text-white">
+                        <CardTitle className="text-xl text-[#F8FAFC] sm:text-2xl">
                           OCR & Document Recognition
                         </CardTitle>
-                        <CardDescription className="text-blue-500 text-sm sm:text-base">
-                          Standardized Identity Processing
+                        <CardDescription className="text-sm text-[#60A5FA] sm:text-base">
+                          Secure Identity Data Extraction
                         </CardDescription>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-6 p-4 sm:p-6 pt-0">
                     <div>
-                      <h4 className="text-base sm:text-lg font-semibold text-white mb-3">
+                      <h4 className="mb-3 text-base font-semibold text-[#F8FAFC] sm:text-lg">
                         Document Types
                       </h4>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
-                          <span className="text-gray-300 text-sm sm:text-base">
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
+                          <span className="text-sm text-[#94A3B8] sm:text-base">
                             National ID Cards
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
                           <span className="text-gray-300 text-sm sm:text-base">
                             Passports
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
                           <span className="text-gray-300 text-sm sm:text-base">
                             Driver's License
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 text-[#60A5FA] sm:h-5 sm:w-5" />
                           <span className="text-gray-300 text-sm sm:text-base">
                             Birth Certificates
                           </span>
@@ -940,27 +948,29 @@ export default function Portfolio() {
                     </div>
 
                     <div>
-                      <h4 className="text-base sm:text-lg font-semibold text-white mb-3">
+                      <h4 className="mb-3 text-base font-semibold text-[#F8FAFC] sm:text-lg">
                         OCR Features
                       </h4>
                       <ul className="space-y-2">
-                        <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                          <span className="text-blue-500 mr-2 flex-shrink-0">
+                        <li className="flex items-start text-sm text-[#94A3B8] sm:text-base">
+                          <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                             •
                           </span>
-                          Machine learning-powered text extraction
+                          OCR pipelines for machine-readable field extraction
                         </li>
                         <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                          <span className="text-blue-500 mr-2 flex-shrink-0">
+                          <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                             •
                           </span>
-                          Document authenticity verification
+                          Document authenticity verification and confidence
+                          thresholding
                         </li>
                         <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                          <span className="text-blue-500 mr-2 flex-shrink-0">
+                          <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                             •
                           </span>
-                          Real-time data validation and formatting
+                          Real-time field validation and secure identity
+                          workflow routing
                         </li>
                       </ul>
                     </div>
@@ -970,86 +980,82 @@ export default function Portfolio() {
             </div>
 
             <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
-              <motion.div
-                whileHover={{ scale: 1.02, rotateY: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card transform-gpu transition-colors">
                   <CardHeader className="p-4 sm:p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-blue-500 flex-shrink-0" />
+                      <Shield className="h-8 w-8 flex-shrink-0 text-[#60A5FA] sm:h-10 sm:w-10" />
                       <div>
-                        <CardTitle className="text-lg sm:text-xl text-white">
+                        <CardTitle className="text-lg text-[#F8FAFC] sm:text-xl">
                           Contactless Biometrics
                         </CardTitle>
-                        <CardDescription className="text-blue-500 text-sm sm:text-base">
-                          Mobile & Desktop Solutions
+                        <CardDescription className="text-sm text-[#60A5FA] sm:text-base">
+                          Multi-Channel Enrollment Clients
                         </CardDescription>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <ul className="space-y-3">
-                      <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                        <span className="text-blue-500 mr-2 flex-shrink-0">
+                      <li className="flex items-start text-sm text-[#94A3B8] sm:text-base">
+                        <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                           •
                         </span>
                         Facial recognition with liveness detection
                       </li>
                       <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                        <span className="text-blue-500 mr-2 flex-shrink-0">
+                        <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                           •
                         </span>
                         Finger capture with liveness detection
                       </li>
                       <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                        <span className="text-blue-500 mr-2 flex-shrink-0">
+                        <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                           •
                         </span>
-                        99.7% accuracy rate in field testing
+                        Device-level validation integrated with backend quality
+                        gates
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.02, rotateY: -5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-black border-gray-800 hover:border-navy-500 transition-colors transform-gpu">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card transform-gpu transition-colors">
                   <CardHeader className="p-4 sm:p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Database className="w-8 h-8 sm:w-10 sm:h-10 text-blue-500 flex-shrink-0" />
+                      <Database className="h-8 w-8 flex-shrink-0 text-[#60A5FA] sm:h-10 sm:w-10" />
                       <div>
-                        <CardTitle className="text-lg sm:text-xl text-white">
+                        <CardTitle className="text-lg text-[#F8FAFC] sm:text-xl">
                           Contact Biometrics
                         </CardTitle>
-                        <CardDescription className="text-blue-500 text-sm sm:text-base">
-                          High-Precision Capture
+                        <CardDescription className="text-sm text-[#60A5FA] sm:text-base">
+                          Enrollment Quality Assurance
                         </CardDescription>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-4 sm:p-6 pt-0">
                     <ul className="space-y-3">
-                      <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                        <span className="text-blue-500 mr-2 flex-shrink-0">
+                      <li className="flex items-start text-sm text-[#94A3B8] sm:text-base">
+                        <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                           •
                         </span>
                         Capacitive fingerprint sensors integration
                       </li>
                       <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                        <span className="text-blue-500 mr-2 flex-shrink-0">
+                        <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                           •
                         </span>
                         Multi-spectral imaging for enhanced accuracy
                       </li>
                       <li className="text-gray-300 flex items-start text-sm sm:text-base">
-                        <span className="text-blue-500 mr-2 flex-shrink-0">
+                        <span className="mr-2 flex-shrink-0 text-[#60A5FA]">
                           •
                         </span>
-                        99.9% data accuracy with quality metrics
+                        Continuous quality checks and audit-friendly capture
+                        metadata
                       </li>
                     </ul>
                   </CardContent>
@@ -1058,33 +1064,38 @@ export default function Portfolio() {
             </div>
 
             <div className="mt-8 sm:mt-12 text-center">
-              <div className="bg-gradient-to-r from-navy-900/20 to-navy-800/20 rounded-lg p-6 sm:p-8 border border-gray-800">
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
-                  Impact & Scale
+              <div className="panel-card rounded-lg p-6 sm:p-8">
+                <h3 className="mb-4 text-xl font-bold text-[#F8FAFC] sm:text-2xl">
+                  Delivery Context
                 </h3>
                 <div className="grid sm:grid-cols-3 gap-6 sm:gap-8">
                   <div>
-                    <h4 className="text-2xl sm:text-3xl font-bold text-blue-500 mb-2">
-                      200M+
+                    <h4 className="mb-2 text-lg font-bold text-[#60A5FA] sm:text-xl">
+                      Distributed Operations
                     </h4>
-                    <p className="text-gray-300 text-sm sm:text-base">
-                      Citizens Enrolled (Local And Diaspora)
+                    <p className="text-sm text-[#94A3B8] sm:text-base">
+                      Supported large-scale biometric enrollment and identity
+                      management workflows across local and diaspora operations
                     </p>
                   </div>
                   <div>
-                    <h4 className="text-2xl sm:text-3xl font-bold text-blue-500 mb-2">
-                      99.8%
+                    <h4 className="mb-2 text-lg font-bold text-[#60A5FA] sm:text-xl">
+                      Secure Processing
                     </h4>
-                    <p className="text-gray-300 text-sm sm:text-base">
-                      System Uptime
+                    <p className="text-sm text-[#94A3B8] sm:text-base">
+                      Implemented secure identity workflows with validation,
+                      auditability, workflow controls, and quality-driven retry
+                      paths
                     </p>
                   </div>
                   <div>
-                    <h4 className="text-2xl sm:text-3xl font-bold text-blue-500 mb-2">
-                      20+
+                    <h4 className="mb-2 text-lg font-bold text-[#60A5FA] sm:text-xl">
+                      Multi-Site Readiness
                     </h4>
-                    <p className="text-gray-300 text-sm sm:text-base">
-                      Enrollment Centers
+                    <p className="text-sm text-[#94A3B8] sm:text-base">
+                      Built enrollment components designed for distributed
+                      field and center-based deployment with controlled sync
+                      behavior
                     </p>
                   </div>
                 </div>
@@ -1108,136 +1119,118 @@ export default function Portfolio() {
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16">
               Featured{" "}
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
-                Projects
+              <span className="section-accent">
+                Engineering Projects
               </span>
             </h2>
+            <p className="mx-auto mb-12 max-w-4xl text-center text-lg text-[#94A3B8] sm:text-xl">
+              Selected work centered on backend platforms, secure identity
+              workflows, distributed processing, and production-grade cloud
+              delivery.
+            </p>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {[
                 {
                   title: "Ibile Hub",
-                  description:
-                    "Enterprise-grade government solutions platform with advanced biometric integration",
-                  tech: [
-                    "Java",
-                    "MSSQL",
-                    ".NET",
-                    "Azure",
-                    "Biometrics",
-                    "Android Native",
-                  ],
-                  features: [
-                    "Government Integration",
-                    "Biometric Solutions",
-                    "Enterprise Security",
-                  ],
+                  problem:
+                    "Government revenue and identity workflows needed a reliable backend platform across multiple channels.",
+                  architecture:
+                    "Built secure service modules with enterprise integration points, biometric workflow handling, and role-aware access patterns across backend boundaries.",
+                  tech: ["Java", ".NET", "MSSQL", "Azure", "Biometrics APIs"],
+                  considerations:
+                    "Focused on data integrity, secure access control, and operational consistency across dependent systems.",
                   url: "https://punchng.com/ibile-hub-initiative-has-simplified-tax-collection-system-coker-lirs-director/",
                   gradient: "from-navy-600 to-navy-800",
                   image: "/assets/ibile.png",
                 },
                 {
                   title: "Leder Mobile App",
-                  description:
-                    "Property capture and management application for Lagos State real estate documentation",
-                  tech: [
-                    "Java",
-                    "Laravel",
-                    "SQL",
-                    "GPS",
-                    "Camera API",
-                    "Android Native",
-                  ],
-                  features: [
-                    "Property Mapping",
-                    "GPS Integration",
-                    "Offline Capability",
-                  ],
+                  problem:
+                    "Property capture teams required a resilient field system with offline-first operation and synchronized records.",
+                  architecture:
+                    "Implemented mobile capture clients backed by API and SQL services, with reliable sync, validation workflows, and field-ready data pipelines.",
+                  tech: ["Java", "Laravel", "SQL", "GPS", "Android"],
+                  considerations:
+                    "Designed for field reliability, consistent geo-data handling, and secure record submission.",
                   url: "https://luc.lagosstate.gov.ng/home",
                   gradient: "from-navy-700 to-navy-900",
                   image: "/placeholder.svg?height=200&width=300",
                 },
                 {
                   title: "TechPay",
-                  description:
-                    "A fintech payment platform with secure, scalable architecture",
-                  tech: ["NestJS", "React", "React Native", "MSSQL", "Azure"],
-                  features: [
-                    "Payment Gateway Integration",
-                    "Authentication",
-                    "Compliance Standards",
-                  ],
+                  problem:
+                    "A fintech product required secure payment orchestration, partner integrations, and scalable transaction processing.",
+                  architecture:
+                    "Developed backend services around NestJS APIs with structured auth flows, transaction orchestration, and integration boundaries.",
+                  tech: ["NestJS", "Node.js", "MSSQL", "Azure", "Secure APIs"],
+                  considerations:
+                    "Emphasized secure API design, transactional consistency, and compliance-aware integration patterns.",
                   url: "https://techpay.ng/",
                   gradient: "from-navy-600 to-navy-800",
                   image: "/assets/techpay.png",
                 },
                 {
                   title: "NIMC Self Service Portal",
-                  description:
-                    "Government identity update platform with role-based authentication",
-                  tech: ["Node.js", "NestJS", "PostgreSQL", "Flutter", "AWS"],
-                  features: [
-                    "Data Encryption",
-                    "Lambda Functions",
-                    "S3 Storage",
-                  ],
+                  problem:
+                    "Identity record updates required secure public access with strong workflow validation and traceability.",
+                  architecture:
+                    "Implemented service-oriented backend modules using NestJS, PostgreSQL, Dockerized delivery, and AWS-managed components.",
+                  tech: ["NestJS", "Node.js", "PostgreSQL", "AWS", "Docker"],
+                  considerations:
+                    "Applied encrypted data paths, role-based controls, and auditable update operations.",
                   url: "https://nimc.gov.ng/self-service-modifications/",
                   gradient: "from-navy-700 to-navy-900",
                   image: "/assets/nimc-portal.png",
                 },
                 {
                   title: "NIMC Assisted Enrollment Mobile",
-                  description:
-                    "Native Android application for NIMC enrollment with biometric capture",
-                  tech: [
-                    "Kotlin",
-                    "Android Native",
-                    "SQLite",
-                    "Biometric APIs",
-                  ],
-                  features: [
-                    "WSQ Format Support",
-                    "Offline Capability",
-                    "Real-time Validation",
-                  ],
+                  problem:
+                    "Enrollment officers needed robust mobile biometric capture with compliance-ready output and deferred sync.",
+                  architecture:
+                    "Built a native Android enrollment flow with WSQ generation, offline persistence, secure packaging, and backend validation hooks.",
+                  tech: ["Kotlin", "Android", "SQLite", "WSQ", "Biometric SDKs"],
+                  considerations:
+                    "Handled device constraints, validation feedback loops, and secure identity payload packaging.",
                   url: "#",
                   gradient: "from-navy-600 to-navy-800",
                   image: "/assets/assisted.png",
                 },
                 {
                   title: "NIMC Assisted Enrollment Desktop",
-                  description:
-                    "Cross-platform desktop application for enrollment management",
-                  tech: ["ElectronJS", "TypeScript", "Node.js", "SQLite"],
-                  features: [
-                    "Cross-platform",
-                    "Biometric Integration",
-                    "Data Synchronization",
-                  ],
+                  problem:
+                    "Desktop enrollment stations required stable biometric processing and controlled synchronization.",
+                  architecture:
+                    "Delivered Electron/Node.js desktop workflows integrated with biometric services, queue-driven sync, and controlled local persistence.",
+                  tech: ["ElectronJS", "TypeScript", "Node.js", "SQLite", "Queues"],
+                  considerations:
+                    "Improved cross-platform stability, synchronization reliability, secure local data handling, and operational recovery paths.",
                   url: "#",
                   gradient: "from-navy-700 to-navy-900",
                   image: "/assets/desktop.png",
                 },
                 {
                   title: "Lagos State Revenue Portal",
-                  description:
-                    "Revenue management system with integrated payment gateways",
-                  tech: [".NET MVC", "MSSQL", "Bootstrap"],
-                  features: [
-                    "Payment Integration",
-                    "Responsive UI",
-                    "Tax Management",
-                  ],
+                  problem:
+                    "Revenue operations required a secure payment-enabled platform for public and internal stakeholders.",
+                  architecture:
+                    "Implemented backend modules for tax workflows, payment integration, and structured reporting paths.",
+                  tech: [".NET MVC", "MSSQL", "Payment Integrations", "Secure APIs"],
+                  considerations:
+                    "Prioritized transaction integrity, access control, and long-term maintainability.",
                   url: "https://revenue.lagosstate.gov.ng/",
                   gradient: "from-navy-600 to-navy-800",
                   image: "/assets/lrp.png",
                 },
                 {
                   title: "Osun State Property System",
-                  description:
-                    "Property management system with tax engine and secure database",
-                  tech: ["Laravel", "Java", "Android Native"],
-                  features: ["Tax Engine", "Mobile App", "Database Security"],
+                  problem:
+                    "Property taxation required dependable data capture, processing workflows, and secure backend access.",
+                  architecture:
+                    "Built service logic for tax calculations, record management, and operational workflows across web and mobile touchpoints.",
+                  tech: ["Laravel", "Java", "Android", "SQL", "Workflow APIs"],
+                  considerations:
+                    "Focused on consistent tax computation, secure storage, and operational reliability.",
                   url: "https://irs.os.gov.ng/tax-schedule/land-use-charge/",
                   gradient: "from-navy-700 to-navy-900",
                   image: "/assets/tsopms.jpg",
@@ -1249,190 +1242,79 @@ export default function Portfolio() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  whileHover={{
-                    scale: 1.05,
-                    rotateY: 5,
-                    rotateX: 5,
-                    z: 50,
-                  }}
-                  className="transform-gpu"
+                  whileHover={{ y: -2 }}
                 >
-                  <Card className="bg-black border-gray-800 hover:border-gray-600 transition-all duration-300 h-full group">
+                  <Card className="panel-card group h-full transition-colors duration-300">
                     <CardHeader className="p-0">
                       <div className="relative overflow-hidden rounded-t-lg">
                         <img
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
-                          className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="h-40 w-full object-cover transition-transform duration-500 group-hover:scale-[1.01] sm:h-48"
                         />
                         <div
-                          className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-80 mix-blend-overlay`}
+                          className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-30 mix-blend-overlay`}
                         />
                         <div className="absolute top-4 right-4">
-                          <Badge className="bg-black/50 text-white border-white/20 text-xs">
+                          <Badge className="outline-badge text-xs">
                             {project.tech[0]}
                           </Badge>
                         </div>
                       </div>
                       <div className="p-4 sm:p-6">
-                        <CardTitle className="text-lg sm:text-xl text-white group-hover:text-blue-500 transition-colors mb-2">
+                        <CardTitle className="mb-3 text-lg text-[#F8FAFC] transition-colors group-hover:text-[#60A5FA] sm:text-xl">
                           {project.title}
                         </CardTitle>
-                        <CardDescription className="text-gray-400 text-sm sm:text-base">
-                          {project.description}
-                        </CardDescription>
+                        <div className="space-y-2">
+                          <p className="text-sm text-[#94A3B8] sm:text-base">
+                            <span className="font-medium text-[#60A5FA]">
+                              Problem:
+                            </span>{" "}
+                            {project.problem}
+                          </p>
+                          <p className="text-sm text-[#94A3B8] sm:text-base">
+                            <span className="font-medium text-[#60A5FA]">
+                              Architecture:
+                            </span>{" "}
+                            {project.architecture}
+                          </p>
+                          <p className="text-sm text-[#94A3B8] sm:text-base">
+                            <span className="font-medium text-[#60A5FA]">
+                              Scalability/Security:
+                            </span>{" "}
+                            {project.considerations}
+                          </p>
+                        </div>
                       </div>
                     </CardHeader>
                     <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-4">
+                      <CardDescription className="text-xs uppercase tracking-[0.18em] text-[#94A3B8] sm:text-sm">
+                        Technologies
+                      </CardDescription>
                       <div className="flex flex-wrap gap-2">
-                        {project.tech.slice(1).map((tech) => (
+                        {project.tech.map((tech) => (
                           <Badge
                             key={tech}
                             variant="outline"
-                            className="border-gray-600 text-gray-300 text-xs"
+                            className="border-[#1E293B] text-[#94A3B8] text-xs"
                           >
                             {tech}
                           </Badge>
                         ))}
                       </div>
-                      <ul className="space-y-1">
-                        {project.features.map((feature, i) => (
-                          <li
-                            key={i}
-                            className="text-gray-400 text-xs sm:text-sm flex items-center"
-                          >
-                            <span className="text-blue-500 mr-2 flex-shrink-0">
-                              ✓
-                            </span>
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent text-xs sm:text-sm"
+                        className="secondary-button w-full text-xs sm:text-sm"
                         onClick={() => openInNewTab(project.url)}
                       >
                         <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                        Learn More
+                        Project Reference
                       </Button>
                     </CardContent>
                   </Card>
                 </motion.div>
               ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Mentorship Section */}
-      <section
-        id="mentorship"
-        className="py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/50 relative z-10"
-      >
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
-              Mentorship &{" "}
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
-                Leadership
-              </span>
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto">
-              Passionate about growing the next generation of developers and
-              sharing knowledge across the tech community.
-            </p>
-
-            <div className="grid sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
-              <motion.div
-                whileHover={{ scale: 1.05, rotateY: 10 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-gray-900 border-gray-800 hover:border-navy-500 transition-colors transform-gpu">
-                  <CardContent className="p-6 sm:p-8 text-center">
-                    <Users className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4" />
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                      20+
-                    </h3>
-                    <p className="text-gray-400 text-sm sm:text-base">
-                      Developers Mentored
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.05, rotateY: -10 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-gray-900 border-gray-800 hover:border-navy-500 transition-colors transform-gpu">
-                  <CardContent className="p-6 sm:p-8 text-center">
-                    <Code className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4" />
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                      7+
-                    </h3>
-                    <p className="text-gray-400 text-sm sm:text-base">
-                      Years Experience
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.05, rotateY: 10 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-gray-900 border-gray-800 hover:border-navy-500 transition-colors transform-gpu">
-                  <CardContent className="p-6 sm:p-8 text-center">
-                    <Building className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4" />
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                      1
-                    </h3>
-                    <p className="text-gray-400 text-sm sm:text-base">
-                      Company Founded
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-
-            <div className="bg-gradient-to-r from-navy-900/20 to-navy-800/20 rounded-lg p-6 sm:p-8 border border-gray-800">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
-                Areas of Mentorship
-              </h3>
-              <div className="grid sm:grid-cols-2 gap-6 text-left">
-                <div>
-                  <h4 className="text-base sm:text-lg font-semibold text-blue-500 mb-2">
-                    Technical Skills
-                  </h4>
-                  <ul className="space-y-1 text-gray-300 text-sm sm:text-base">
-                    <li>• Backend Development (NestJS, Node.js, Go)</li>
-                    <li>
-                      • Mobile Development (React Native, Flutter, Kotlin)
-                    </li>
-                    <li>• Cloud Architecture (AWS, Azure)</li>
-                    <li>• Biometric Systems & Identity Management</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="text-base sm:text-lg font-semibold text-blue-500 mb-2">
-                    Career Development
-                  </h4>
-                  <ul className="space-y-1 text-gray-300 text-sm sm:text-base">
-                    <li>• Technical Leadership</li>
-                    <li>• System Architecture Design</li>
-                    <li>• Code Review & Best Practices</li>
-                    <li>• Entrepreneurship in Tech</li>
-                  </ul>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -1452,68 +1334,61 @@ export default function Portfolio() {
             className="text-center"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
-              Let's{" "}
-              <span className="bg-gradient-to-r from-navy-400 to-navy-600 bg-clip-text text-blue-500">
-                Connect
+              Contact{" "}
+              <span className="section-accent">
+                Details
               </span>
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto">
-              Ready to build something amazing together? I'm always open to
-              discussing new opportunities, mentorship, and exciting projects.
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-[#94A3B8] sm:mb-12 sm:text-xl">
+              Open to senior backend, platform, and cloud engineering roles,
+              especially teams building identity infrastructure, fintech
+              systems, distributed backend platforms, and reliability-focused
+              cloud services.
             </p>
 
             <div className="grid sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
-              <motion.div
-                whileHover={{ scale: 1.05, rotateY: 10 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
                 <Card
-                  className="bg-gray-900 border-gray-800 hover:border-navy-500 transition-colors transform-gpu"
+                  className="panel-card transform-gpu transition-colors"
                   onClick={openEmailClient}
                 >
                   <CardContent className="p-4 sm:p-6 text-center">
-                    <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mx-auto mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">
+                    <Mail className="mx-auto mb-4 h-6 w-6 text-[#60A5FA] sm:h-8 sm:w-8" />
+                    <h3 className="mb-2 text-base font-semibold text-[#F8FAFC] sm:text-lg">
                       Email
                     </h3>
-                    <p className="text-gray-400 text-sm sm:text-base break-all">
+                    <p className="break-all text-sm text-[#94A3B8] sm:text-base">
                       ayomideogbede@yahoo.com
                     </p>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.05, rotateY: -10 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
                 <Card
-                  className="bg-gray-900 border-gray-800 hover:border-navy-500 transition-colors transform-gpu"
+                  className="panel-card transform-gpu transition-colors"
                   onClick={initiateCall}
                 >
                   <CardContent className="p-4 sm:p-6 text-center">
-                    <Phone className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mx-auto mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">
+                    <Phone className="mx-auto mb-4 h-6 w-6 text-[#60A5FA] sm:h-8 sm:w-8" />
+                    <h3 className="mb-2 text-base font-semibold text-[#F8FAFC] sm:text-lg">
                       Phone
                     </h3>
-                    <p className="text-gray-400 text-sm sm:text-base">
+                    <p className="text-sm text-[#94A3B8] sm:text-base">
                       +234 812 696 3575
                     </p>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.05, rotateY: 10 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-gray-900 border-gray-800 hover:border-navy-500 transition-colors transform-gpu">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                <Card className="panel-card transform-gpu transition-colors">
                   <CardContent className="p-4 sm:p-6 text-center">
-                    <MapPin className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mx-auto mb-4" />
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">
+                    <MapPin className="mx-auto mb-4 h-6 w-6 text-[#60A5FA] sm:h-8 sm:w-8" />
+                    <h3 className="mb-2 text-base font-semibold text-[#F8FAFC] sm:text-lg">
                       Location
                     </h3>
-                    <p className="text-gray-400 text-sm sm:text-base">
+                    <p className="text-sm text-[#94A3B8] sm:text-base">
                       Katampe, Abuja, Nigeria
                     </p>
                   </CardContent>
@@ -1524,7 +1399,7 @@ export default function Portfolio() {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button
                 size="lg"
-                className="w-full sm:w-auto bg-gradient-to-r from-navy-600 to-navy-800 hover:from-navy-700 hover:to-navy-900 transform hover:scale-105 transition-transform"
+                className="primary-button w-full sm:w-auto"
                 onClick={openEmailClient}
               >
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -1533,7 +1408,7 @@ export default function Portfolio() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-gray-600 text-white hover:bg-gray-800 bg-transparent transform hover:scale-105 transition-transform"
+                className="secondary-button w-full sm:w-auto"
                 onClick={() => openInNewTab("https://www.github.com/ay4real")}
               >
                 <Github className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -1542,7 +1417,7 @@ export default function Portfolio() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-gray-600 text-white hover:bg-gray-800 bg-transparent transform hover:scale-105 transition-transform"
+                className="secondary-button w-full sm:w-auto"
                 onClick={() =>
                   openInNewTab(
                     "https://www.linkedin.com/in/ayomide-ogbede-967793170"
@@ -1558,15 +1433,15 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="py-6 sm:py-8 px-4 sm:px-6 border-t border-gray-800 relative z-10">
+      <footer className="relative z-10 border-t border-[#1E293B] px-4 py-6 sm:px-6 sm:py-8">
         <div className="container mx-auto text-center">
-          <p className="text-gray-400 text-sm sm:text-base">
-            © {new Date().getFullYear()} Ayomide Ogbede. Crafted with passion
-            and precision.
+          <p className="text-sm text-[#94A3B8] sm:text-base">
+            © {new Date().getFullYear()} Ayomide Ogbede, C.itp, MCPN. Backend
+            Engineer • Cloud-Native Systems • Identity Infrastructure
           </p>
-          <p className="text-gray-500 text-xs sm:text-sm mt-2">
-            CEO, OOEAN IT Solutions Limited • Fullstack Engineer • Biometrics
-            Expert
+          <p className="mt-2 text-xs text-[#94A3B8] sm:text-sm">
+            Senior Backend Engineer • Distributed Systems • Secure API
+            Platforms
           </p>
         </div>
       </footer>
